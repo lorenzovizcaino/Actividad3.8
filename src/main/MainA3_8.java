@@ -21,8 +21,8 @@ public class MainA3_8 {
 
         //crearModuloProfeNuevos(session);
         //eliminarComunidad(session, 19); // borrado de Melilla como CA
-        //eliminarProvinciaDeComunidad(session, 100);
-        crearComunidadYProvincias(session);
+        eliminarProvinciaDeComunidad(session, 200);
+        //crearComunidadYProvincias(session);
         session.close();
         sessionFactory.close();
 
@@ -109,11 +109,14 @@ public class MainA3_8 {
             // El id no se asigna automáticamente en esta tabla
             prov2.setIdProvincia(idCA + 2);
 
-            ca.getProvincias().add(prov1);
-            prov1.setComunidadAutonoma(ca);
-
-            ca.getProvincias().add(prov2);
-            prov2.setComunidadAutonoma(ca);
+//            ca.getProvincias().add(prov1);
+//            prov1.setComunidadAutonoma(ca);
+//
+//            ca.getProvincias().add(prov2);
+//            prov2.setComunidadAutonoma(ca);
+            //estas dos siguientes lineas hacen lo mismo que las 4 anteriores
+            ca.addProvincia(prov1);
+            ca.addProvincia(prov2);
 
             // Primero guardamos el extremo 1
             session.save(ca);
@@ -144,13 +147,15 @@ public class MainA3_8 {
             ComunidadAutonoma ca = session.get(ComunidadAutonoma.class, idCA);
             Set<Provincia> provs = ca.getProvincias();
             if (provs != null) {
-                Iterator<Provincia> it = ca.getProvincias().iterator();
+                Iterator<Provincia> it = ca.getProvincias().iterator();//cambiarlo por un foreach de Provincia
                 while (it.hasNext()) {
                     Provincia prov = it.next();
                     System.out.println("Eliminando provincia de la CA con id: " + ca.getIdCa() + " Prov. id: "
                             + prov.getIdProvincia());
-                    ca.getProvincias().remove(prov);
-                    prov.setComunidadAutonoma(null);
+//                    ca.getProvincias().remove(prov);
+//                    prov.setComunidadAutonoma(null);
+                    //la linea siguiente hace lo mismo que las dos anteriores
+                    ca.removeProvincia(prov);
                     break;
                 }
             }
@@ -160,7 +165,7 @@ public class MainA3_8 {
 
             tx.commit();
         } catch (Exception ex) {
-            System.err.println("Ha ocurrido una exception en crearComunidad: " + ex.getMessage());
+            System.err.println("Ha ocurrido una exception en eliminarProvinciaDeComunidad: " + ex.getMessage());
             if (tx != null) {
                 tx.rollback();
             }

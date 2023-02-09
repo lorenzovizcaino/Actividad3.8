@@ -9,7 +9,7 @@
         <property name="nombre" type="string">
             <column length="100" name="nombre" not-null="true"/>
         </property>
-        <set fetch="select" inverse="true" lazy="true" name="provincias" table="provincia" cascade="delete,save-update">
+        <set fetch="select" inverse="true" lazy="true" name="provincias" table="provincia" cascade="delete,save-update,delete-orphan">
             <key>
                 <column name="idCA" not-null="true"/>
             </key>

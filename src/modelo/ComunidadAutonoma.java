@@ -57,5 +57,12 @@ public class ComunidadAutonoma implements java.io.Serializable {
 		prov.setComunidadAutonoma(this);
 
 	}
+	public void removeProvincia(Provincia prov) {
+
+		getProvincias().remove(prov); //uso de getProvincias() en lugar de this.provincias para forzar inicialización del proxy
+
+		prov.setComunidadAutonoma(null);
+
+	}
 
 }
