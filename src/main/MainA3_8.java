@@ -157,6 +157,7 @@ public class MainA3_8 {
                     //la linea siguiente hace lo mismo que las dos anteriores
                     ca.removeProvincia(prov);
                     break;
+
                 }
             }
 
